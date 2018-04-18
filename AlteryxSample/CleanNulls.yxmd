@@ -3,7 +3,7 @@
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="246" y="102" />
+        <Position x="54" y="54" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -49,33 +49,38 @@
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
     </Node>
-    <Node ToolID="2">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="342" y="102" />
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+        <Position x="150" y="54" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <FormulaFields>
-            <FormulaField expression="CleanNulls([TextField])" field="TextFieldClean" size="1073741823" type="V_WString" />
-            <FormulaField expression="CleanNulls([IntegerField])" field="IntegerFieldClean" size="4" type="Int32" />
-            <FormulaField expression="CleanNulls([DoubleField])" field="DoubleFieldClean" size="8" type="Double" />
-          </FormulaFields>
+          <FieldType>All</FieldType>
+          <Fields orderChanged="False">
+            <Field name="TextField" />
+            <Field name="IntegerField" />
+            <Field name="DoubleField" />
+            <Field name="*Unknown" selected="False" />
+          </Fields>
+          <NewFieldAddOn>Clean</NewFieldAddOn>
+          <NewFieldAddOnPos>Suffix</NewFieldAddOnPos>
+          <CopyOutput value="True" />
+          <Expression>CleanNulls([_CurrentField_])</Expression>
+          <ChangeFieldType value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <AnnotationText>Clean</AnnotationText>
-          <DefaultAnnotationText>TextFieldClean = CleanNulls([TextField])
-IntegerFieldClean = CleanNulls([Integer...</DefaultAnnotationText>
+          <DefaultAnnotationText>CleanNulls([_CurrentField_])</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
     </Node>
   </Nodes>
   <Connections>
     <Connection>
       <Origin ToolID="1" Connection="Output" />
-      <Destination ToolID="2" Connection="Input" />
+      <Destination ToolID="3" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>
