@@ -3,35 +3,41 @@
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="54" y="54" />
+        <Position x="246" y="102" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <NumRows value="5" />
           <Fields>
-            <Field name="Field1" />
-            <Field name="Field2" />
+            <Field name="TextField" />
+            <Field name="IntegerField" />
+            <Field name="DoubleField" />
           </Fields>
           <Data>
             <r>
               <c>ABC</c>
               <c>123</c>
+              <c>43.12</c>
             </r>
             <r>
+              <c />
               <c />
               <c />
             </r>
             <r>
               <c>ABC</c>
               <c />
+              <c />
             </r>
             <r>
               <c />
               <c>123</c>
+              <c />
             </r>
             <r>
               <c />
               <c />
+              <c>43.12</c>
             </r>
           </Data>
         </Configuration>
@@ -45,21 +51,21 @@
     </Node>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="138" y="54" />
+        <Position x="342" y="102" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <FormulaFields>
-            <FormulaField expression="CleanNulls([Field1])" field="Field1" size="3" type="String" />
-            <FormulaField expression="CleanNulls([Field2])" field="Field2" size="1" type="Byte" />
+            <FormulaField expression="CleanNulls([TextField])" field="TextFieldClean" size="1073741823" type="V_WString" />
+            <FormulaField expression="CleanNulls([IntegerField])" field="IntegerFieldClean" size="4" type="Int32" />
+            <FormulaField expression="CleanNulls([DoubleField])" field="DoubleFieldClean" size="8" type="Double" />
           </FormulaFields>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
           <AnnotationText>Clean</AnnotationText>
-          <DefaultAnnotationText><![CDATA[Field1 = CleanNulls([Field1])
-Field2 = CleanNulls([Field2])
-]]></DefaultAnnotationText>
+          <DefaultAnnotationText>TextFieldClean = CleanNulls([TextField])
+IntegerFieldClean = CleanNulls([Integer...</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
