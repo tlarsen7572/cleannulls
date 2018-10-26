@@ -3,11 +3,34 @@
 #include "customformulas.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std;
 
 TEST_CLASS(SimpleStrToInt_Tests)
 {
 public:
-	TEST_METHOD(NullReturnZero)
+	TEST_METHOD(longPow2) {
+		unsigned long long value = longPow(40, 2);
+		unsigned long long expected = 1600;
+		Assert::IsTrue(value == expected);
+	}
+	TEST_METHOD(longPow0) {
+		unsigned long long value = longPow(40, 0);
+		unsigned long long expected = 1;
+		Assert::IsTrue(value == expected);
+	}
+
+	TEST_METHOD(longPow1) {
+		unsigned long long value = longPow(40, 1);
+		unsigned long long expected = 40;
+		Assert::IsTrue(value == expected);
+	}
+	TEST_METHOD(longPow11) {
+		unsigned long long value = longPow(40, 11);
+		unsigned long long expected = 419430400000000000;
+		Assert::IsTrue(value == expected);
+	}
+
+	TEST_METHOD(NullReturnNull)
 	{
 		FormulaAddInData *data = CreateNullData(1);
 		FormulaAddInData *pReturnValue = CreateReturnValue();
@@ -25,15 +48,17 @@ public:
 		int returnCode = SimpleStrToInt(2, data, pReturnValue);
 		Assert::AreEqual(0, returnCode);
 		Assert::AreEqual(L"Only one parameter can be provided.", pReturnValue->pVal);
+		Assert::AreEqual(1, pReturnValue->isNull);
 	}
 
-	TEST_METHOD(ErrorMoreThan10Chars) {
-		FormulaAddInData *data = CreatePopulatedData(L"1234567890A");
+	TEST_METHOD(ErrorMoreThan12Chars) {
+		FormulaAddInData *data = CreatePopulatedData(L"1234567890ABC");
 		FormulaAddInData *pReturnValue = CreateReturnValue();
 
 		int returnCode = SimpleStrToInt(1, data, pReturnValue);
 		Assert::AreEqual(0, returnCode);
-		Assert::AreEqual(L"String must be 10 characters or less.", pReturnValue->pVal);
+		Assert::AreEqual(L"String must be 12 characters or less.", pReturnValue->pVal);
+		Assert::AreEqual(1, pReturnValue->isNull);
 	}
 
 	TEST_METHOD(ErrorIfNumber) {
@@ -48,16 +73,33 @@ public:
 		int returnCode = SimpleStrToInt(1, data, pReturnValue);
 		Assert::AreEqual(0, returnCode);
 		Assert::AreEqual(L"Value must be a string.", pReturnValue->pVal);
+		Assert::AreEqual(1, pReturnValue->isNull);
 	}
 
 	TEST_METHOD(ABCConversion) {
 		FormulaAddInData *data = CreatePopulatedData(L"ABC");
 		FormulaAddInData *pReturnValue = CreateReturnValue();
 
+		signed long long checkval = INT64_MIN + 23016;
+		wstring checkvalStr = to_wstring(checkval);
+		const wchar_t * checkvalwChar{ checkvalStr.c_str() };
 		int returnCode = SimpleStrToInt(1, data, pReturnValue);
 		Assert::AreEqual(1, returnCode);
-		Assert::AreEqual(41676.0, pReturnValue->dVal);
-		Assert::AreEqual(1, pReturnValue->nVarType);
+		Assert::AreEqual(checkvalwChar, pReturnValue->pVal);
+		Assert::AreEqual(2, pReturnValue->nVarType);
+	}
+
+	TEST_METHOD(ZZZZZZZZZZZZConversion) {
+		FormulaAddInData *data = CreatePopulatedData(L"ZZZZZZZZZZZZ");
+		FormulaAddInData *pReturnValue = CreateReturnValue();
+
+		signed long long checkval = INT64_MIN + 16777215999999999999;
+		wstring checkvalStr = to_wstring(checkval);
+		const wchar_t * checkvalwChar{ checkvalStr.c_str() };
+		int returnCode = SimpleStrToInt(1, data, pReturnValue);
+		Assert::AreEqual(1, returnCode);
+		Assert::AreEqual(checkvalwChar, pReturnValue->pVal);
+		Assert::AreEqual(2, pReturnValue->nVarType);
 	}
 
 	TEST_METHOD(BlankStringConversion) {
@@ -66,8 +108,7 @@ public:
 
 		int returnCode = SimpleStrToInt(1, data, pReturnValue);
 		Assert::AreEqual(1, returnCode);
-		Assert::AreEqual(0.0, pReturnValue->dVal);
-		Assert::AreEqual(1, pReturnValue->nVarType);
+		Assert::AreEqual(1, pReturnValue->isNull);
 	}
 
 	FormulaAddInData * CreateReturnValue()

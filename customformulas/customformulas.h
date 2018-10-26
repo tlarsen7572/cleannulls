@@ -10,5 +10,7 @@ struct FormulaAddInData
 
 void SetString(FormulaAddInData *pReturnValue, const wchar_t *pString);
 void SetDouble(FormulaAddInData *pReturnValue, double value);
+extern "C" unsigned long long _declspec(dllexport) _stdcall longPow(unsigned long value, int pow);
 extern "C" long _declspec(dllexport) _stdcall CleanNulls(int nNumArgs, FormulaAddInData *pArgs, FormulaAddInData *pReturnValue);
 extern "C" long _declspec(dllexport) _stdcall SimpleStrToInt(int nNumArgs, FormulaAddInData *pArgs, FormulaAddInData *pReturnValue);
+extern "C" long _declspec(dllexport) _stdcall StrToInt(int nNumArgs, FormulaAddInData *pArgs, FormulaAddInData *pReturnValue);

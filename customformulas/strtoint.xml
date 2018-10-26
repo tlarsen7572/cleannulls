@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file along with its dll needs to be installed to ...InstallDir...\RuntimeData\FormulaAddIn to run. -->
+<FormulaAddIn>
+  <Function>
+    <Name>StrToInt</Name>
+    <NumParams variable="false">1</NumParams>
+    <Category>Conversion</Category>
+    <InsertText>StrToInt(x)</InsertText>
+    <Description>Converts integer strings into 64-bit integers.</Description>
+    <Dll>
+      <Name>customformulas.dll</Name>
+      <EntryPoint>StrToInt</EntryPoint>
+    </Dll>
+  </Function>
+</FormulaAddIn>

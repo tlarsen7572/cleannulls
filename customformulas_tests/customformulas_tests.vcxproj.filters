@@ -32,5 +32,8 @@
     <ClCompile Include="cleannulls_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Thomas.J.Larsen%40us.abb.com\Documents\Projects\CustomFormulas\customformulas\customformulas_tests\strtoint_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

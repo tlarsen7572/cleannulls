@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file along with its dll needs to be installed to ...InstallDir...\RuntimeData\FormulaAddIn to run. -->
+<FormulaAddIn>
+  <Function>
+    <Name>SimpleStrToInt</Name>
+    <NumParams variable="false">1</NumParams>
+    <Category>Specialized</Category>
+    <InsertText>SimpleStrToInt(x)</InsertText>
+    <Description>Converts strings containing 0-9, A-Z, period, underscore, space, and hyphen into 64-bit integers.</Description>
+    <Dll>
+      <Name>customformulas.dll</Name>
+      <EntryPoint>SimpleStrToInt</EntryPoint>
+    </Dll>
+  </Function>
+</FormulaAddIn>
